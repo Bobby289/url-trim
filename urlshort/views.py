@@ -4,7 +4,7 @@ from .models import makeurl
 import random
 # Create your views here.
 def home(request):
-    return render(request,'home.html')
+    return render(request,'index.html')
 def urlshort(request):
     longurl = request.POST.get('longurl')
     lu = getlist("longurl")
@@ -13,7 +13,7 @@ def urlshort(request):
         surl = ldata.shorturl
         shorturl = "http://127.0.0.1:8000/"+surl
         #return HttpResponse("your shorted url for {} is {}".format(longurl,shorturl))
-        return render(request,'home.html',{"data": shorturl})
+        return render(request,'index.html',{"data": shorturl})
     t = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ*&%$@!"
     shorturl = ("".join(random.sample(t,7)))
     su = getlist("shorturl")
@@ -23,7 +23,7 @@ def urlshort(request):
     makeurl.objects.create(shorturl=shorturl,longurl=longurl)
     shorturl = "http://127.0.0.1:8000/"+shorturl
     #return HttpResponse("your shorted url for {} is {}".format(longurl,shorturl))
-    return render(request,'home.html',{"data": shorturl})
+    return render(request,'index.html',{"data": shorturl})
 def toshort(request,shorturl):
     try:
         obj = makeurl.objects.get(shorturl=shorturl)
